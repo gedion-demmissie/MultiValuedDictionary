@@ -43,6 +43,51 @@ namespace MultiValuedKeyDictionary
             {
                 Console.WriteLine(item);
             }
+
+            added = multivaluedDictionary.Add(2, "avocado");
+            if (added)
+            {
+                Console.WriteLine("(2, 'avocado') pair  is Added.");
+            }
+            added = multivaluedDictionary.Add(2, "apple");
+            if (added)
+            {
+                Console.WriteLine("(2, 'apple') pair  is Added.");
+            }
+
+            added = multivaluedDictionary.Add(3, "date");
+            if (added)
+            {
+                Console.WriteLine("(3, 'date') pair  is Added.");
+            }
+
+            added = multivaluedDictionary.Add(3, "lemon");
+            if (added)
+            {
+                Console.WriteLine("(3, 'lemon') pair  is Added.");
+            }
+
+            added = multivaluedDictionary.Add(3, "papaya");
+            if (added)
+            {
+                Console.WriteLine("(3, 'papaye') pair  is Added.");
+            }
+
+            added = multivaluedDictionary.Add(3, "cucumber");
+            if (added)
+            {
+                Console.WriteLine("(3, 'cucumber') pair  is Added.");
+            }
+
+            Console.WriteLine("Key 1 has the following values:");
+            Console.WriteLine("==================================================================================================");
+
+            Console.WriteLine("Now the entire multivalued dictionary flattened(via Flatten method)  has the following values:");
+            foreach (var item in multivaluedDictionary.Flatten())
+            {
+                Console.WriteLine($"({item.Key} , {item.Value})");
+            }
+
             Console.ReadKey();
         }
     }
@@ -224,16 +269,14 @@ namespace MultiValuedKeyDictionary
         /// <returns></returns>
         public IEnumerable<KeyValuePair<TKey, TValue>> Flatten()
         {
-            IEnumerable<KeyValuePair<TKey, TValue>> flattenedContent = new List<KeyValuePair<TKey, TValue>>();
-            foreach (var (item, value) in from KeyValuePair<TKey, Dictionary<TValue, TValue>> item in _data
-                                          let values = item.Value.Keys
-                                          from TValue value in values
-                                          select (item, value))
-            {
-                flattenedContent.Append(new KeyValuePair<TKey, TValue>(item.Key, value));
-            }
 
-            return flattenedContent;
+         var result= from KeyValuePair<TKey, Dictionary<TValue, TValue>> item in _data
+                                   let values = item.Value.Keys
+                                          from TValue value in values
+                                          select (new KeyValuePair<TKey, TValue>(item.Key, value));
+          
+            return result;
+           
         }
         
         /// <summary>
