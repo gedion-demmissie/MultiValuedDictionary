@@ -2,7 +2,7 @@
 ## This is a simple console Application that contains the MultiValued Dictionary Advanced data structure.
 # ====Sample Test Run===============
 ### Multi Valued Collection Test Runner
-###### (1, 'banana') pair  is Added.\n
+###### (1, 'banana') pair  is Added.
 ###### (1, 'orange') pair  is Added.
 ###### Key 1 has the following values:
 ###### banana
